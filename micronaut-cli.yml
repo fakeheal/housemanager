@@ -1,0 +1,6 @@
+applicationType: cli
+defaultPackage: edu.nbu
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [ app-name, data, data-jpa, gradle, h2, http-client-test, java, jdbc-hikari, junit, logback, micronaut-build, picocli, picocli-java-application, picocli-junit, properties, readme, serialization-jackson, shade ]
