@@ -4,6 +4,8 @@ import edu.nbu.entities.Employee;
 import edu.nbu.repositories.EmployeeRepository;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 public class EmployeeService {
     @Inject
     EmployeeRepository employeeRepository;
@@ -11,13 +13,17 @@ public class EmployeeService {
     @Inject
     CompanyService companyService;
 
-    public Employee createEmployee(String firstName, String lastName) {
+    public void create(String firstName, String lastName) {
         Employee employee = new Employee();
 
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setCompany(companyService.getCompany());
 
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
+    }
+
+    public List<Employee> list() {
+        return employeeRepository.findAll();
     }
 }

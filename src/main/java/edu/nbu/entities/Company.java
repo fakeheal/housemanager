@@ -19,8 +19,8 @@ public class Company {
     @NotBlank(message = "Company address must not be blank")
     private String address;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Building> buildings;
+//    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Building> buildings;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
@@ -57,9 +57,9 @@ public class Company {
         this.address = address;
     }
 
-    public List<Building> getBuildings() {
-        return buildings;
-    }
+//    public List<Building> getBuildings() {
+//        return buildings;
+//    }
 
     public List<Employee> getEmployees() {
         return employees;

@@ -21,7 +21,7 @@ public class CreateEmployeeSubcommand implements Runnable {
     @Override
     public void run() {
         try {
-            employeeService.createEmployee(firstName, lastName);
+            employeeService.create(firstName, lastName);
             spec.commandLine().getOut().println("Employee created successfully!");
         } catch (Exception e) {
             spec.commandLine().getErr().println("Error: " + e.getMessage());

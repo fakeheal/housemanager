@@ -20,6 +20,9 @@ public class Employee {
     @ManyToOne
     private Company company;
 
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Building building;
+
     public Employee() {
 
     }
@@ -62,4 +65,13 @@ public class Employee {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
 }
+
