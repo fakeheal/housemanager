@@ -2,6 +2,7 @@ package edu.nbu.services;
 
 import edu.nbu.entities.Employee;
 import edu.nbu.exceptions.crud.CannotDeleteResourceException;
+import edu.nbu.exceptions.crud.CannotRetrieveResourceException;
 import edu.nbu.repositories.EmployeeRepository;
 import jakarta.inject.Inject;
 
@@ -41,5 +42,10 @@ public class EmployeeService {
 
     public List<Employee> list() {
         return employeeRepository.findAll();
+    }
+
+    public Employee findById(Long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new CannotRetrieveResourceException("Employee with id " + employeeId + " not found"));
     }
 }
