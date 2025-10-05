@@ -11,6 +11,7 @@ import picocli.CommandLine.Option;
         subcommands = {
                 edu.nbu.subcommands.company.SetupCompanySubcommand.class,
                 edu.nbu.subcommands.employees.CreateEmployeeSubcommand.class,
+                edu.nbu.subcommands.employees.DeleteEmployeeSubcommand.class,
                 edu.nbu.subcommands.employees.ListEmployeesSubcommand.class,
                 edu.nbu.subcommands.buildings.CreateBuildingSubcommand.class
         }
