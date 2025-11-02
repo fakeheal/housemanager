@@ -154,4 +154,14 @@ class ApartmentServiceTest {
 
         assert exceptionThrown;
     }
+
+    @Test
+    public void delete() {
+        Apartment apartment = apartmentService.create(building.getId(), "Apt 101", 1, 75.0f, 3, 1);
+
+        apartmentService.delete(apartment.getId());
+
+        assert apartmentRepository.count() == 0;
+        assert floorRepository.count() == 0;
+    }
 }

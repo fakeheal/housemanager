@@ -56,5 +56,6 @@ java -jar build/libs/housemanager-0.1-all.jar buildings:list && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:create --buildingId=1 --name="1A" --floor=1 --area=79.88 --residents=2 --pets=1  && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1 && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:update --id=1 --name="1B" --floor=2 --area=85.50 --residents=3 --pets=0 && \
-java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1
+java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1 && \
+java -jar build/libs/housemanager-0.1-all.jar apartments:delete --id=1
 ```

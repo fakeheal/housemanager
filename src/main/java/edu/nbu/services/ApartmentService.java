@@ -84,4 +84,12 @@ public class ApartmentService {
     public List<Apartment> list(Long buildingId) {
         return apartmentRepository.findByFloorBuildingId(buildingId);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Apartment apartment = this.findById(id);
+        Floor floor = apartment.getFloor();
+        apartmentRepository.delete(apartment);
+        this.deleteFloorIfEmpty(floor);
+    }
 }
