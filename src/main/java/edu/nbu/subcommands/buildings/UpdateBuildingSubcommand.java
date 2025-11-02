@@ -5,13 +5,16 @@ import edu.nbu.services.BuildingService;
 import jakarta.inject.Inject;
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "buildings:create", description = "Creates a new building")
-public class CreateBuildingSubcommand implements Runnable {
+@CommandLine.Command(name = "buildings:update", description = "Updates an existing building")
+public class UpdateBuildingSubcommand implements Runnable {
     @CommandLine.Spec
     public CommandLine.Model.CommandSpec spec;
 
     @Inject
     BuildingService buildingService;
+
+    @CommandLine.Option(names = "--id", description = "ID of the new building", required = true)
+    String id;
 
     @CommandLine.Option(names = "--name", description = "Name of the new building", required = true)
     String name;
@@ -28,10 +31,10 @@ public class CreateBuildingSubcommand implements Runnable {
     @Override
     public void run() {
         try {
-            buildingService.create(name, address, Long.parseLong(employeeId), Float.parseFloat(commonArea));
-            spec.commandLine().getOut().println("Building created successfully!");
+            buildingService.update(Long.parseLong(id), name, address, Long.parseLong(employeeId), Float.parseFloat(commonArea));
+            spec.commandLine().getOut().println("Building updated successfully!");
         } catch (Exception e) {
-            spec.commandLine().getErr().println("Error creating building: " + e.getMessage());
+            spec.commandLine().getErr().println("Error updating building: " + e.getMessage());
         }
     }
 }

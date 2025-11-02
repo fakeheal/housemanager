@@ -3,7 +3,9 @@
 Проект по CSCB525 Приложно програмиране с Java към НБУ.
 
 ### Описание
+
 CLI приложение за управление на входни такси за жилищни сгради. Поддържат се следните функции:
+
 - Управление на сгради
 - Управление на апартаменти
 - Управление на живущи и домашни любимци
@@ -12,6 +14,7 @@ CLI приложение за управление на входни такси 
 - Генериране на отчети
 
 ### Технологии
+
 - Java 21
 - Gradle
 - JUnit 5
@@ -34,6 +37,20 @@ CLI приложение за управление на входни такси 
 #### Примерни команди:
 
 Добавяне на служител:
+
 ```bash
 java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=John --lastName=Doe
+```
+
+### Demo
+
+```bash
+./gradlew build && \
+java -jar build/libs/housemanager-0.1-all.jar company:setup --name="Demo Company" --address="456 Demo St, City, Country" && \
+java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=Alice --lastName=Smith && \
+java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=John --lastName=Doe && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:create --name="Sunset Apartments" --address="789 Sunset Blvd, City, Country" --employeeId=1 --commonArea=50.0 && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:list && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:update --id=1 --name="Sunrise Apartments" --address="789 Sunrise Blvd, City, Country" --employeeId=2 --commonArea=60.0 && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:list
 ```

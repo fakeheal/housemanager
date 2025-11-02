@@ -20,7 +20,7 @@ public class Employee {
     @ManyToOne
     private Company company;
 
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToOne(mappedBy = "employee")
     private Building building;
 
     public Employee() {
@@ -72,6 +72,9 @@ public class Employee {
 
     public void setBuilding(Building building) {
         this.building = building;
+        if (building != null && building.getEmployee() != this) {
+            building.setEmployee(this);
+        }
     }
 }
 

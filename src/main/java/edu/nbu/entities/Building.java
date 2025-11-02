@@ -12,10 +12,12 @@ public class Building {
     private String name;
     private String address;
 
-    @OneToOne
-    private Employee owner;
+    private float commonArea;
 
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    private Employee employee;
+
+    @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Floor> floors;
 
     public Long getId() {
@@ -42,12 +44,16 @@ public class Building {
         this.address = address;
     }
 
-    public Employee getOwner() {
-        return owner;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setOwner(Employee owner) {
-        this.owner = owner;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+
+        if (employee != null && employee.getBuilding() != this) {
+            employee.setBuilding(this);
+        }
     }
 
     public List<Floor> getFloors() {
@@ -56,5 +62,13 @@ public class Building {
 
     public void setFloors(List<Floor> floors) {
         this.floors = floors;
+    }
+
+    public float getCommonArea() {
+        return commonArea;
+    }
+
+    public void setCommonArea(float commonArea) {
+        this.commonArea = commonArea;
     }
 }

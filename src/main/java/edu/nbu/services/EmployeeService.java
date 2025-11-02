@@ -15,26 +15,27 @@ public class EmployeeService {
     @Inject
     CompanyService companyService;
 
-    public void create(String firstName, String lastName) {
+    public Employee create(String firstName, String lastName) {
         Employee employee = new Employee();
 
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
-        employee.setCompany(companyService.getCompany());
+        employee.setCompany(companyService.findById());
 
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     public void delete(Long id) {
-
-        //@TODO: Prevent deleting an employee when their building cannot be assigned to someone else
-
-        if (employeeRepository.count() == 1)
-            throw new CannotDeleteResourceException("Cannot delete the last employee in the company");
-
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new CannotDeleteResourceException("Employee with id " + id + " not found"));
 
+        if (employeeRepository.count() == 1) {
+            throw new CannotDeleteResourceException("Cannot delete the last employee in the company");
+        }
+
+        if (employeeRepository.findByBuildingIsNull().isEmpty()) {
+            throw new CannotDeleteResourceException("Cannot delete employee with id " + id + " because they own a building and there is no other employee to assign it to.");
+        }
 
         //@TODO: Assign its buildings to someone else
         employeeRepository.delete(employee);

@@ -11,7 +11,7 @@ public class CompanyService {
     CompanyRepository companyRepository;
 
 
-    public Company createCompany(String name, String address) {
+    public Company create(String name, String address) {
         if (isCompanyAlreadyCreated()) {
             throw new CannotCreateResourceException("A company is already created.");
         }
@@ -25,7 +25,7 @@ public class CompanyService {
         return company;
     }
 
-    public Company getCompany() {
+    public Company findById() {
         if (!isCompanyAlreadyCreated()) {
             throw new CompanyNotSetupException();
         }

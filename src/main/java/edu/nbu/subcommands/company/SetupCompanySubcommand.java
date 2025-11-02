@@ -12,16 +12,16 @@ public class SetupCompanySubcommand implements Runnable {
     CompanyService companyService;
     @CommandLine.Spec
     public CommandLine.Model.CommandSpec spec;
-    @CommandLine.Option(names = "--name", description = "Name of the company")
+    @CommandLine.Option(names = "--name", description = "Name of the company", required = true)
     String name;
 
-    @CommandLine.Option(names = "--address", description = "Address of the Company (eg. 123 Main St, City, Country)")
+    @CommandLine.Option(names = "--address", description = "Address of the Company (eg. 123 Main St, City, Country)", required = true)
     String address;
 
     @Override
     public void run() {
         try {
-            Company company = companyService.createCompany(name, address);
+            Company company = companyService.create(name, address);
             spec.commandLine().getOut().println("Company '" + company.getName() + "' at '" + company.getAddress() + "' has been set up successfully.");
         } catch (Exception e) {
             spec.commandLine().getErr().println("Error: " + e.getMessage());

@@ -13,7 +13,9 @@ import picocli.CommandLine.Option;
                 edu.nbu.subcommands.employees.CreateEmployeeSubcommand.class,
                 edu.nbu.subcommands.employees.DeleteEmployeeSubcommand.class,
                 edu.nbu.subcommands.employees.ListEmployeesSubcommand.class,
-                edu.nbu.subcommands.buildings.CreateBuildingSubcommand.class
+                edu.nbu.subcommands.buildings.CreateBuildingSubcommand.class,
+                edu.nbu.subcommands.buildings.ListBuildingsSubcommand.class,
+                edu.nbu.subcommands.buildings.UpdateBuildingSubcommand.class,
         }
 )
 public class HousemanagerCommand implements Runnable {
