@@ -4,6 +4,8 @@ import edu.nbu.entities.Apartment;
 import edu.nbu.entities.Building;
 import edu.nbu.entities.Floor;
 import edu.nbu.exceptions.crud.CannotCreateResourceException;
+import edu.nbu.exceptions.crud.CannotRetrieveResourceException;
+import edu.nbu.exceptions.crud.CannotUpdateResourceException;
 import edu.nbu.repositories.ApartmentRepository;
 import jakarta.inject.Inject;
 
@@ -38,6 +40,28 @@ public class ApartmentService {
         return apartmentRepository.save(apartment);
     }
 
+    public Apartment update(Long id, String name, Integer floorName, Float area, Integer numberOfResidents, Integer numberOfPets) {
+        Apartment apartment = this.findById(id);
+
+        Floor floor = floorService.firstOrCreate(apartment.getFloor().getBuilding(), floorName);
+
+        if (!apartment.getName().equals(name) && apartmentRepository.existsByNameAndFloor(name, floor)) {
+            throw new CannotUpdateResourceException("Apartment with the given name already exists on the specified floor.");
+        }
+
+        apartment.setName(name);
+        apartment.setFloor(floor);
+        apartment.setArea(area);
+        apartment.setNumberOfResidents(numberOfResidents);
+        apartment.setNumberOfPets(numberOfPets);
+
+        return apartmentRepository.save(apartment);
+    }
+
+    public Apartment findById(Long id) {
+        return apartmentRepository.findById(id)
+                .orElseThrow(() -> new CannotRetrieveResourceException("Apartment with the given ID does not exist."));
+    }
 
     public List<Apartment> list(Long buildingId) {
         return apartmentRepository.findByFloorBuildingId(buildingId);

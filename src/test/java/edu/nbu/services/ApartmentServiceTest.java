@@ -122,4 +122,32 @@ class ApartmentServiceTest {
         assert apartments.size() == 1;
         assert apartments.getFirst().getName().equals("Apt 101");
     }
+
+    @Test
+    public void update() {
+        Apartment apartment = apartmentService.create(building.getId(), "Apt 101", 1, 75.0f, 3, 1);
+
+        Apartment updatedApartment = apartmentService.update(apartment.getId(), "Apt 101A", 1, 80.0f, 4, 2);
+
+        assert updatedApartment.getName().equals("Apt 101A");
+        assert updatedApartment.getArea() == 80.0f;
+        assert updatedApartment.getNumberOfResidents() == 4;
+        assert updatedApartment.getNumberOfPets() == 2;
+    }
+
+    @Test
+    public void update_throwsException_whenApartmentNameExistsOnFloor() {
+        Apartment apartment1 = apartmentService.create(building.getId(), "Apt 101", 1, 75.0f, 3, 1);
+        apartmentService.create(building.getId(), "Apt 102", 1, 80.0f, 2, 0);
+
+        boolean exceptionThrown = false;
+        try {
+            apartmentService.update(apartment1.getId(), "Apt 102", 1, 75.0f, 3, 1);
+        } catch (Exception e) {
+            exceptionThrown = true;
+            assert Objects.equals(e.getMessage(), "Apartment with the given name already exists on the specified floor.");
+        }
+
+        assert exceptionThrown;
+    }
 }

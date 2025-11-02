@@ -25,6 +25,7 @@ import picocli.CommandLine.Option;
                 // Apartments
                 edu.nbu.subcommands.apartments.CreateApartmentSubcommand.class,
                 edu.nbu.subcommands.apartments.ListApartmentsSubcommand.class,
+                edu.nbu.subcommands.apartments.UpdateApartmentSubcommand.class,
         }
 )
 public class HousemanagerCommand implements Runnable {
