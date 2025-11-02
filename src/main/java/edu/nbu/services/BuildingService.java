@@ -6,6 +6,7 @@ import edu.nbu.exceptions.crud.CannotCreateResourceException;
 import edu.nbu.exceptions.crud.CannotRetrieveResourceException;
 import edu.nbu.repositories.BuildingRepository;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 public class BuildingService {
     @Inject
@@ -33,6 +34,7 @@ public class BuildingService {
         return building;
     }
 
+    @Transactional
     public Building update(Long id, String name, String address, Long employeeId, float commonArea) {
         Building building = this.findById(id);
 
@@ -43,7 +45,9 @@ public class BuildingService {
         }
 
         Employee oldEmployee = building.getEmployee();
-        oldEmployee.setBuilding(null);
+        if (oldEmployee != null && !oldEmployee.getId().equals(employeeId)) {
+            oldEmployee.setBuilding(null);
+        }
 
         building.setName(name);
         building.setAddress(address);
