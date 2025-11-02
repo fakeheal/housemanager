@@ -60,6 +60,7 @@ java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1 && 
 java -jar build/libs/housemanager-0.1-all.jar apartments:delete --id=1 && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1 && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:create --buildingId=1 --name="1A" --floor=1 --area=79.88 --residents=2 --pets=1 && \
-java -jar build/libs/housemanager-0.1-all.jar fees:issue --buildingId=1 --period="2025-10"
+java -jar build/libs/housemanager-0.1-all.jar fees:issue --buildingId=1 --period="2025-10" && \
+java -jar build/libs/housemanager-0.1-all.jar fees:list --buildingId=1
 
 ```

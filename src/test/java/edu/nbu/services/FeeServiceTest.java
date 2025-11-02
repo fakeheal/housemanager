@@ -82,7 +82,9 @@ class FeeServiceTest {
         ).getFirst();
 
         assert fee.getApartment().getId().equals(apartment.getId());
-        assert fee.getAmount() == (int) (((75.0f * 10.00f) + (3 * 20.00f) + (1 * 5.00f)) * 100);
+        assert fee.getAmountRaw() == (int) (((75.0f * 10.00f) + (3 * 20.00f) + (1 * 5.00f)) * 100);
     }
+
+
 
 }

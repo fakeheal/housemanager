@@ -55,4 +55,8 @@ public class FeeService {
 
         return total;
     }
+
+    public List<Fee> list(Long buildingId) {
+        return feeRepository.findByApartmentFloorBuildingId(buildingId);
+    }
 }

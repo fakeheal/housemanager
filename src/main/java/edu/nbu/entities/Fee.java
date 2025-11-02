@@ -2,13 +2,15 @@ package edu.nbu.entities;
 
 import edu.nbu.converters.YearMonthConverter;
 import edu.nbu.enums.FeeStatus;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.Instant;
 import java.time.YearMonth;
 
 @Entity
-public class Fee {
+public class Fee implements WorksWithMoney {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +29,8 @@ public class Fee {
 
     @NotNull
     private Integer amount;
+
+    private Instant paidOn;
 
 
     public Long getId() {
@@ -61,11 +65,23 @@ public class Fee {
         this.period = period;
     }
 
-    public Integer getAmount() {
+    public Float getAmount() {
+        return convertToLeva(amount);
+    }
+
+    public Integer getAmountRaw() {
         return amount;
     }
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Instant getPaidOn() {
+        return paidOn;
+    }
+
+    public void setPaidOn(Instant paidOn) {
+        this.paidOn = paidOn;
     }
 }

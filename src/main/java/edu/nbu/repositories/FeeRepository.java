@@ -15,6 +15,11 @@ public interface FeeRepository extends CrudRepository<@Valid Fee, Long> {
     @Query("SELECT f FROM Fee f " +
             "JOIN f.apartment a " +
             "JOIN a.floor fl " +
+            "WHERE fl.building.id = :buildingId")
+    List<Fee> findByApartmentFloorBuildingId(Long buildingId);
+    @Query("SELECT f FROM Fee f " +
+            "JOIN f.apartment a " +
+            "JOIN a.floor fl " +
             "WHERE fl.building.id = :buildingId AND f.period = :period")
     List<Fee> findByApartmentFloorBuildingIdAndPeriod(Long buildingId, YearMonth period);
 
