@@ -8,6 +8,7 @@ import edu.nbu.exceptions.crud.CannotRetrieveResourceException;
 import edu.nbu.exceptions.crud.CannotUpdateResourceException;
 import edu.nbu.repositories.ApartmentRepository;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class ApartmentService {
         return apartmentRepository.save(apartment);
     }
 
+    @Transactional
     public Apartment update(Long id, String name, Integer floorName, Float area, Integer numberOfResidents, Integer numberOfPets) {
         Apartment apartment = this.findById(id);
 
@@ -66,6 +68,10 @@ public class ApartmentService {
     private void deleteFloorIfEmpty(Floor floor) {
         List<Apartment> apartmentsOnFloor = apartmentRepository.findByFloor(floor);
         if (apartmentsOnFloor.isEmpty()) {
+            Building building = floor.getBuilding();
+            if (building != null && building.getFloors() != null) {
+                building.getFloors().remove(floor);
+            }
             floorService.delete(floor);
         }
     }
