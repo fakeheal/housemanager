@@ -46,7 +46,7 @@ class FloorServiceTest {
     void setUp() {
         companyService.create("Test Company", "123 Test St, Test City, TC 12345");
         Employee employee = employeeService.create("John", "Doe");
-        building = buildingService.create("Test Building", "456 Building Ave, Build City, BC 67890", employee.getId(), 100.0f);
+        building = buildingService.create("Test Building", "456 Building Ave, Build City, BC 67890", employee.getId(), 100.0f, 10.00f, 20.00f, 5.00f);
 
 
     }

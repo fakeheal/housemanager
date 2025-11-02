@@ -2,6 +2,8 @@ package edu.nbu.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Entity
@@ -17,8 +19,13 @@ public class Building {
     @OneToOne
     private Employee employee;
 
+
     @OneToMany(mappedBy = "building", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Floor> floors;
+
+    Integer feePerSqM;
+    Integer feePerResident;
+    Integer feePerPet;
 
     public Long getId() {
         return id;
@@ -70,5 +77,43 @@ public class Building {
 
     public void setCommonArea(Float commonArea) {
         this.commonArea = commonArea;
+    }
+
+
+    public Float getFeePerSqM() {
+        return convertToLeva(feePerSqM);
+    }
+
+    public void setFeePerSqM(Float feePerSqM) {
+        this.feePerSqM = convertToCents(feePerSqM);
+    }
+
+    public Float getFeePerResident() {
+        return convertToLeva(feePerResident);
+    }
+
+    public void setFeePerResident(Float feePerResident) {
+        this.feePerResident = convertToCents(feePerResident);
+    }
+
+    public Float getFeePerPet() {
+        return convertToLeva(feePerPet);
+    }
+
+    public void setFeePerPet(Float feePerPet) {
+        this.feePerPet = convertToCents(feePerPet);
+    }
+
+    private Integer convertToCents(Float amount) {
+        return new BigDecimal(amount)
+                .multiply(new BigDecimal(100))
+                .setScale(0, RoundingMode.HALF_UP)
+                .intValue();
+    }
+
+    private Float convertToLeva(Integer amountInCents) {
+        return new BigDecimal(amountInCents)
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP)
+                .floatValue();
     }
 }

@@ -49,9 +49,9 @@ java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=John 
 java -jar build/libs/housemanager-0.1-all.jar company:setup --name="Demo Company" --address="456 Demo St, City, Country" && \
 java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=Alice --lastName=Smith && \
 java -jar build/libs/housemanager-0.1-all.jar employees:create --firstName=John --lastName=Doe && \
-java -jar build/libs/housemanager-0.1-all.jar buildings:create --name="Sunset Apartments" --address="789 Sunset Blvd, City, Country" --employeeId=1 --commonArea=50.0 && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:create --name="Sunset Apartments" --address="789 Sunset Blvd, City, Country" --employeeId=1 --commonArea=50.0 --feePerSqM=10 --feePerResident=12.50 --feePerPet=9.99 && \
 java -jar build/libs/housemanager-0.1-all.jar buildings:list && \
-java -jar build/libs/housemanager-0.1-all.jar buildings:update --id=1 --name="Sunrise Apartments" --address="789 Sunrise Blvd, City, Country" --employeeId=2 --commonArea=60.0 && \
+java -jar build/libs/housemanager-0.1-all.jar buildings:update --id=1 --name="Sunrise Apartments" --address="789 Sunrise Blvd, City, Country" --employeeId=2 --commonArea=60.0  --feePerSqM=10 --feePerResident=12.50 --feePerPet=9.99 && \
 java -jar build/libs/housemanager-0.1-all.jar buildings:list && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:create --buildingId=1 --name="1A" --floor=1 --area=79.88 --residents=2 --pets=1  && \
 java -jar build/libs/housemanager-0.1-all.jar apartments:list --buildingId=1 && \

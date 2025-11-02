@@ -16,7 +16,15 @@ public class BuildingService {
     EmployeeService employeeService;
 
 
-    public Building create(String name, String address, Long employeeId, float commonArea) {
+    public Building create(
+            String name,
+            String address,
+            Long employeeId,
+            Float commonArea,
+            Float feePerSqM,
+            Float feePerResident,
+            Float feePerPet
+    ) {
         Employee employee = employeeService.findById(employeeId);
 
         if (employee.getBuilding() != null) {
@@ -28,6 +36,9 @@ public class BuildingService {
         building.setAddress(address);
         building.setCommonArea(commonArea);
         building.setEmployee(employee);
+        building.setFeePerSqM(feePerSqM);
+        building.setFeePerResident(feePerResident);
+        building.setFeePerPet(feePerPet);
 
         buildingRepository.save(building);
 
@@ -35,7 +46,16 @@ public class BuildingService {
     }
 
     @Transactional
-    public Building update(Long id, String name, String address, Long employeeId, float commonArea) {
+    public Building update(
+            Long id,
+            String name,
+            String address,
+            Long employeeId,
+            Float commonArea,
+            Float feePerSqM,
+            Float feePerResident,
+            Float feePerPet
+    ) {
         Building building = this.findById(id);
 
         Employee newEmployee = employeeService.findById(employeeId);
@@ -53,6 +73,9 @@ public class BuildingService {
         building.setAddress(address);
         building.setCommonArea(commonArea);
         building.setEmployee(newEmployee);
+        building.setFeePerSqM(feePerSqM);
+        building.setFeePerResident(feePerResident);
+        building.setFeePerPet(feePerPet);
 
         buildingRepository.save(building);
 

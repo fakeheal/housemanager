@@ -21,7 +21,17 @@ public class ListBuildingsSubcommand implements Runnable {
 
         Object[][] table = new String[buildings.size() + 1][];
 
-        table[0] = new String[]{"ID", "Name", "Address", "Common Area", "Managed By", "Floors"};
+        table[0] = new String[]{
+                "ID",
+                "Name",
+                "Address",
+                "Common Area",
+                "Managed By",
+                "Floors",
+                "Fee (per m²)",
+                "Fee (per Resident)",
+                "Fee (per Pet)"
+        };
 
         int i = 1;
         for (Building building : buildings) {
@@ -31,13 +41,27 @@ public class ListBuildingsSubcommand implements Runnable {
                     building.getAddress(),
                     building.getCommonArea() + " m²",
                     building.getEmployee().getFirstName() + " " + building.getEmployee().getLastName(),
-                    String.valueOf(building.getFloors().size())
+                    String.valueOf(building.getFloors().size()),
+                    building.getFeePerSqM() + " BGN",
+                    building.getFeePerResident() + " BGN",
+                    building.getFeePerPet() + " BGN"
             };
             i++;
         }
 
         for (Object[] row : table) {
-            spec.commandLine().getOut().printf("%-15s%-20s%-40s%-15s%-15s%-15s\n", row[0], row[1], row[2], row[3], row[4], row[5]);
+            spec.commandLine().getOut().printf(
+                    "%-15s%-20s%-40s%-15s%-15s%-15s%-15s%-20s%-15s\n",
+                    row[0],
+                    row[1],
+                    row[2],
+                    row[3],
+                    row[4],
+                    row[5],
+                    row[6],
+                    row[7],
+                    row[8]
+            );
         }
     }
 }

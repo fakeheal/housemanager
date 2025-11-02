@@ -46,7 +46,7 @@ class BuildingServiceTest {
     @Test
     void create() {
         Employee employee = employeeService.create("John", "Doe");
-        Building building = buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee.getId(), 50.0f);
+        Building building = buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee.getId(), 50.0f, 10.00f, 20.00f, 5.00f);
         assert building != null;
 
         assert building.getName().equals("Test Building");
@@ -58,12 +58,12 @@ class BuildingServiceTest {
     @Test
     void create_throwsException_whenEmployeeAlreadyManagesBuilding() {
         Employee employee = employeeService.create("John", "Doe");
-        buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee.getId(), 50.0f);
+        buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee.getId(), 50.0f, 10.00f, 20.00f, 5.00f);
 
         assert buildingRepository.count() == 1;
 
         try {
-            buildingService.create("Another Building", "789 Another St, Another City, AC 12345", employee.getId(), 30.0f);
+            buildingService.create("Another Building", "789 Another St, Another City, AC 12345", employee.getId(), 30.0f, 10.00f, 20.00f, 5.00f);
         } catch (Exception e) {
             assert e.getMessage().contains("Employee already manages a building");
         }
@@ -74,10 +74,10 @@ class BuildingServiceTest {
     @Test
     void update() {
         Employee employee1 = employeeService.create("John", "Doe");
-        Building building = buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee1.getId(), 50.0f);
+        Building building = buildingService.create("Test Building", "456 Test Ave, Test City, TC 67890", employee1.getId(), 50.0f, 10.00f, 20.00f, 5.00f);
 
         Employee employee2 = employeeService.create("Jane", "Smith");
-        Building updatedBuilding = buildingService.update(building.getId(), "Updated Building", "789 Updated St, Updated City, UC 54321", employee2.getId(), 75.0f);
+        Building updatedBuilding = buildingService.update(building.getId(), "Updated Building", "789 Updated St, Updated City, UC 54321", employee2.getId(), 75.0f, 10.00f, 20.00f, 5.00f);
 
         assert updatedBuilding != null;
         assert updatedBuilding.getName().equals("Updated Building");
@@ -89,13 +89,13 @@ class BuildingServiceTest {
     @Test
     void update_throwsException_whenEmployeeAlreadyManagesBuilding() {
         Employee employee1 = employeeService.create("John", "Doe");
-        Building building1 = buildingService.create("Test Building 1", "456 Test Ave, Test City, TC 67890", employee1.getId(), 50.0f);
+        Building building1 = buildingService.create("Test Building 1", "456 Test Ave, Test City, TC 67890", employee1.getId(), 50.0f, 10.00f, 20.00f, 5.00f);
 
         Employee employee2 = employeeService.create("Jane", "Smith");
-        Building building2 = buildingService.create("Test Building 2", "789 Another St, Another City, AC 12345", employee2.getId(), 30.0f);
+        Building building2 = buildingService.create("Test Building 2", "789 Another St, Another City, AC 12345", employee2.getId(), 30.0f, 10.00f, 20.00f, 5.00f);
 
         try {
-            buildingService.update(building2.getId(), "Updated Building 2", "101 Updated St, Updated City, UC 54321", employee1.getId(), 75.0f);
+            buildingService.update(building2.getId(), "Updated Building 2", "101 Updated St, Updated City, UC 54321", employee1.getId(), 75.0f, 10.00f, 20.00f, 5.00f);
         } catch (Exception e) {
             assert e.getMessage().contains("Employee already manages a building");
         }
