@@ -31,6 +31,7 @@ import picocli.CommandLine.Option;
                 // Fees
                 edu.nbu.subcommands.fees.IssueFeesSubcommand.class,
                 edu.nbu.subcommands.fees.ListFeesSubcommand.class,
+                edu.nbu.subcommands.fees.PayFeeSubcommand.class,
         }
 )
 public class HousemanagerCommand implements Runnable {

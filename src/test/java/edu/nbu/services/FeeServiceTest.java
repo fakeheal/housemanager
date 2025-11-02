@@ -4,6 +4,7 @@ import edu.nbu.entities.Apartment;
 import edu.nbu.entities.Building;
 import edu.nbu.entities.Employee;
 import edu.nbu.entities.Fee;
+import edu.nbu.enums.FeeStatus;
 import edu.nbu.repositories.*;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -85,6 +86,36 @@ class FeeServiceTest {
         assert fee.getAmountRaw() == (int) (((75.0f * 10.00f) + (3 * 20.00f) + (1 * 5.00f)) * 100);
     }
 
+    @Test
+    public void issueFees_twice_throws() {
+        apartmentService.create(building.getId(), "Apt 101", 1, 75.0f, 3, 1);
+        feeService.issueFees(java.time.YearMonth.of(2025, 10), building.getId());
 
+        boolean exceptionThrown = false;
+        try {
+            feeService.issueFees(java.time.YearMonth.of(2025, 10), building.getId());
+        } catch (Exception e) {
+            exceptionThrown = true;
+        }
+
+        assert exceptionThrown;
+    }
+
+    @Test
+    public void payFee() {
+        Apartment apartment = apartmentService.create(building.getId(), "Apt 102", 1, 80.0f, 2, 0);
+        feeService.issueFees(java.time.YearMonth.of(2025, 11), building.getId());
+
+        Fee fee = feeRepository.findByApartmentFloorBuildingIdAndPeriod(
+                building.getId(),
+                java.time.YearMonth.of(2025, 11)
+        ).getFirst();
+
+        feeService.payFee(fee.getId());
+
+        Fee paidFee = feeService.findById(fee.getId());
+        assert paidFee.getStatus() == FeeStatus.PAID;
+        assert paidFee.getPaidOn() != null;
+    }
 
 }

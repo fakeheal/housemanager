@@ -5,13 +5,18 @@ import edu.nbu.entities.Building;
 import edu.nbu.entities.Fee;
 import edu.nbu.enums.FeeStatus;
 import edu.nbu.exceptions.FeesAlreadyIssued;
+import edu.nbu.exceptions.crud.CannotRetrieveResourceException;
 import edu.nbu.repositories.FeeRepository;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.YearMonth;
 import java.util.List;
 
+@Singleton
 public class FeeService {
     @Inject
     BuildingService buildingService;
@@ -39,6 +44,19 @@ public class FeeService {
             fee.setStatus(FeeStatus.PENDING);
             feeRepository.save(fee);
         });
+    }
+
+    @Transactional
+    public void payFee(Long feeId) {
+        Fee fee = findById(feeId);
+        fee.setStatus(FeeStatus.PAID);
+        fee.setPaidOn(Instant.now());
+        feeRepository.save(fee);
+    }
+
+    public Fee findById(Long feeId) {
+        return feeRepository.findById(feeId)
+                .orElseThrow(() -> new CannotRetrieveResourceException("Fee not found"));
     }
 
     private Integer calculateFeeAmount(Apartment apartment) {
