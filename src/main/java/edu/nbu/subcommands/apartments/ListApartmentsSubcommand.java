@@ -39,7 +39,7 @@ public class ListApartmentsSubcommand implements Runnable {
         }
 
         for (Object[] row : table) {
-            spec.commandLine().getOut().printf("%-15s%-20s%-40s%-15s%-15s%-15s\n", row[0], row[1], row[2], row[3], row[4], row[5]);
+            spec.commandLine().getOut().printf("%-15s%-10s%-10s%-15s%-15s%-15s\n", row[0], row[1], row[2], row[3], row[4], row[5]);
         }
     }
 }

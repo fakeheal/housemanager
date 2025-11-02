@@ -15,4 +15,6 @@ public interface ApartmentRepository extends CrudRepository<@Valid Apartment, Lo
 
     @Query("SELECT a FROM Apartment a JOIN a.floor f WHERE f.building.id = :buildingId")
     List<Apartment> findByFloorBuildingId(Long buildingId);
+
+    List<Apartment> findByFloor(Floor floor);
 }

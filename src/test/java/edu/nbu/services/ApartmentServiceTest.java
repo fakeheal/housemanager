@@ -127,12 +127,16 @@ class ApartmentServiceTest {
     public void update() {
         Apartment apartment = apartmentService.create(building.getId(), "Apt 101", 1, 75.0f, 3, 1);
 
-        Apartment updatedApartment = apartmentService.update(apartment.getId(), "Apt 101A", 1, 80.0f, 4, 2);
+        Apartment updatedApartment = apartmentService.update(apartment.getId(), "Apt 101A", 2, 80.0f, 4, 2);
 
         assert updatedApartment.getName().equals("Apt 101A");
         assert updatedApartment.getArea() == 80.0f;
         assert updatedApartment.getNumberOfResidents() == 4;
         assert updatedApartment.getNumberOfPets() == 2;
+
+        assert apartmentRepository.count() == 1;
+        assert floorRepository.findByBuildingAndName(building, 2).isPresent();
+        assert floorRepository.count() == 1;
     }
 
     @Test

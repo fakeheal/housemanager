@@ -9,7 +9,6 @@ public class FloorService {
     @Inject
     FloorRepository floorRepository;
 
-
     public Floor firstOrCreate(Building building, Integer name) {
         return floorRepository.findByBuildingAndName(building, name)
                 .orElseGet(() -> {
@@ -18,5 +17,9 @@ public class FloorService {
                     floor.setName(name);
                     return floorRepository.save(floor);
                 });
+    }
+
+    public void delete(Floor floor) {
+        floorRepository.delete(floor);
     }
 }

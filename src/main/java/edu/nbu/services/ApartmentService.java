@@ -43,6 +43,7 @@ public class ApartmentService {
     public Apartment update(Long id, String name, Integer floorName, Float area, Integer numberOfResidents, Integer numberOfPets) {
         Apartment apartment = this.findById(id);
 
+        Floor previousFloor = apartment.getFloor();
         Floor floor = floorService.firstOrCreate(apartment.getFloor().getBuilding(), floorName);
 
         if (!apartment.getName().equals(name) && apartmentRepository.existsByNameAndFloor(name, floor)) {
@@ -55,7 +56,18 @@ public class ApartmentService {
         apartment.setNumberOfResidents(numberOfResidents);
         apartment.setNumberOfPets(numberOfPets);
 
-        return apartmentRepository.save(apartment);
+        Apartment updatedApartment = apartmentRepository.save(apartment);
+
+        this.deleteFloorIfEmpty(previousFloor);
+
+        return updatedApartment;
+    }
+
+    private void deleteFloorIfEmpty(Floor floor) {
+        List<Apartment> apartmentsOnFloor = apartmentRepository.findByFloor(floor);
+        if (apartmentsOnFloor.isEmpty()) {
+            floorService.delete(floor);
+        }
     }
 
     public Apartment findById(Long id) {

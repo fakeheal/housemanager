@@ -34,7 +34,7 @@ public class UpdateApartmentSubcommand implements Runnable {
     @Override
     public void run() {
         try {
-            apartmentService.create(id, name, address, area, residents, pets);
+            apartmentService.update(id, name, address, area, residents, pets);
             spec.commandLine().getOut().println("Apartment updated successfully!");
         } catch (Exception e) {
             spec.commandLine().getErr().println("Error updating apartment: " + e.getMessage());
