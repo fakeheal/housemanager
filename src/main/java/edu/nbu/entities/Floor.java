@@ -2,6 +2,8 @@ package edu.nbu.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Floor {
     @Id
@@ -11,6 +13,9 @@ public class Floor {
 
     @ManyToOne
     private Building building;
+
+    @OneToMany(mappedBy = "floor")
+    private List<Apartment> apartments;
 
     public Long getId() {
         return id;
@@ -36,4 +41,7 @@ public class Floor {
         this.building = building;
     }
 
+    public List<Apartment> getApartments() {
+        return apartments;
+    }
 }

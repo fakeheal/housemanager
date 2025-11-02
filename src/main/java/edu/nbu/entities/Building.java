@@ -84,6 +84,10 @@ public class Building {
         return convertToLeva(feePerSqM);
     }
 
+    public Integer getFeePerSqMRaw() {
+        return feePerSqM;
+    }
+
     public void setFeePerSqM(Float feePerSqM) {
         this.feePerSqM = convertToCents(feePerSqM);
     }
@@ -92,12 +96,20 @@ public class Building {
         return convertToLeva(feePerResident);
     }
 
+    public Integer getFeePerResidentRaw() {
+        return feePerResident;
+    }
+
     public void setFeePerResident(Float feePerResident) {
         this.feePerResident = convertToCents(feePerResident);
     }
 
     public Float getFeePerPet() {
         return convertToLeva(feePerPet);
+    }
+
+    public Integer getFeePerPetRaw() {
+        return feePerPet;
     }
 
     public void setFeePerPet(Float feePerPet) {
