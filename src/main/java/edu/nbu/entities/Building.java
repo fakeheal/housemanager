@@ -12,7 +12,7 @@ public class Building {
     private String name;
     private String address;
 
-    private float commonArea;
+    private Float commonArea;
 
     @OneToOne
     private Employee employee;
@@ -64,11 +64,11 @@ public class Building {
         this.floors = floors;
     }
 
-    public float getCommonArea() {
+    public Float getCommonArea() {
         return commonArea;
     }
 
-    public void setCommonArea(float commonArea) {
+    public void setCommonArea(Float commonArea) {
         this.commonArea = commonArea;
     }
 }

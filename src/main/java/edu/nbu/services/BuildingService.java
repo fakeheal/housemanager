@@ -33,32 +33,32 @@ public class BuildingService {
         return building;
     }
 
-public Building update(Long id, String name, String address, Long employeeId, float commonArea) {
-    Building building = this.findById(id);
+    public Building update(Long id, String name, String address, Long employeeId, float commonArea) {
+        Building building = this.findById(id);
 
-    Employee newEmployee = employeeService.findById(employeeId);
+        Employee newEmployee = employeeService.findById(employeeId);
 
-    if (newEmployee.getBuilding() != null && !newEmployee.getBuilding().getId().equals(id)) {
-        throw new CannotCreateResourceException("Employee already manages a building");
+        if (newEmployee.getBuilding() != null && !newEmployee.getBuilding().getId().equals(id)) {
+            throw new CannotCreateResourceException("Employee already manages a building");
+        }
+
+        Employee oldEmployee = building.getEmployee();
+        oldEmployee.setBuilding(null);
+
+        building.setName(name);
+        building.setAddress(address);
+        building.setCommonArea(commonArea);
+        building.setEmployee(newEmployee);
+
+        buildingRepository.save(building);
+
+        return building;
     }
 
-    Employee oldEmployee = building.getEmployee();
-    oldEmployee.setBuilding(null);
-
-    building.setName(name);
-    building.setAddress(address);
-    building.setCommonArea(commonArea);
-    building.setEmployee(newEmployee);
-
-    buildingRepository.save(building);
-
-    return building;
-}
-
-public Building findById(Long id) {
-    return buildingRepository.findById(id)
-            .orElseThrow(() -> new CannotRetrieveResourceException("Building not found"));
-}
+    public Building findById(Long id) {
+        return buildingRepository.findById(id)
+                .orElseThrow(() -> new CannotRetrieveResourceException("Building not found"));
+    }
 
     public java.util.List<Building> list() {
         return buildingRepository.findAll();

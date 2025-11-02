@@ -29,7 +29,7 @@ public class ListBuildingsSubcommand implements Runnable {
                     building.getId().toString(),
                     building.getName(),
                     building.getAddress(),
-                    String.valueOf(building.getCommonArea()) + " m²",
+                    building.getCommonArea() + " m²",
                     building.getEmployee().getFirstName() + " " + building.getEmployee().getLastName(),
                     String.valueOf(building.getFloors().size())
             };

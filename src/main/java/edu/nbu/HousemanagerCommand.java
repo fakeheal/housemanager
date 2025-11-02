@@ -9,13 +9,22 @@ import picocli.CommandLine.Option;
         description = "...",
         mixinStandardHelpOptions = true,
         subcommands = {
+                // Setup
                 edu.nbu.subcommands.company.SetupCompanySubcommand.class,
+
+                // Employees
                 edu.nbu.subcommands.employees.CreateEmployeeSubcommand.class,
                 edu.nbu.subcommands.employees.DeleteEmployeeSubcommand.class,
                 edu.nbu.subcommands.employees.ListEmployeesSubcommand.class,
+
+                // Buildings
                 edu.nbu.subcommands.buildings.CreateBuildingSubcommand.class,
                 edu.nbu.subcommands.buildings.ListBuildingsSubcommand.class,
                 edu.nbu.subcommands.buildings.UpdateBuildingSubcommand.class,
+
+                // Apartments
+                edu.nbu.subcommands.apartments.CreateApartmentSubcommand.class,
+                edu.nbu.subcommands.apartments.ListApartmentsSubcommand.class,
         }
 )
 public class HousemanagerCommand implements Runnable {
